@@ -4,6 +4,7 @@ import HeliumLogger
 import Kitura
 import LoggerAPI
 import SwiftyJSON
+import KituraCORS
 
 HeliumLogger.use()
 
@@ -12,6 +13,14 @@ let client = CouchDBClient(connectionProperties: connectionProperties)
 let database = client.database("polls")
 
 let router = Router()
+
+//let options = Options(allowedOrigin: .origin("http://localhost:3000"), methods: ["GET","PUT"], allowedHeaders: ["Content-Type"], maxAge: 5)
+
+let cors = CORS(options: Options())
+
+//router.all("/cors", middleware: cors) // This didn't work although it was on the docs, the next line did
+router.all(middleware: cors)
+
 
 router.post("/polls/create", middleware: BodyParser())
 
@@ -192,5 +201,6 @@ router.post("/polls/vote/:pollid/:option") {
     }
 }
 
-Kitura.addHTTPServer(onPort: 8091, with: router)
+
+Kitura.addHTTPServer(onPort: 8090, with: router)
 Kitura.run()
