@@ -1,6 +1,6 @@
 Polls app using Kitura and CouchDB
 
-1. Download and start and instance of CouchDB http://couchdb.apache.org/
+1. Download and start an instance of CouchDB http://couchdb.apache.org/
 
 2. From this directory run `swift build`
 
